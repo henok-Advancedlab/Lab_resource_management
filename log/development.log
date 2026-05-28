@@ -1,0 +1,114 @@
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='LabResourceManagement'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-05-28 18:10:12.765350', '2026-05-28 18:10:12.765352') RETURNING "key" /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LabResourceManagement'*/[0m
+Migrating to CreateCategories (20260528175539)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='LabResourceManagement'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_categories_on_name" ON "categories" ("name") /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260528175539') RETURNING "version" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+Migrating to CreateEquipment (20260528175707)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "equipment" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "serial_number" varchar NOT NULL, "status" varchar DEFAULT 'available' NOT NULL, "category_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_bede910432"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+) /*application='LabResourceManagement'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_equipment_on_category_id" ON "equipment" ("category_id") /*application='LabResourceManagement'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_equipment_on_serial_number" ON "equipment" ("serial_number") /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260528175707') RETURNING "version" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+Migrating to CreateMaintenanceRecords (20260528175719)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "maintenance_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "equipment_id" integer NOT NULL, "performed_at" datetime(6) NOT NULL, "description" text NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_13800eed25"
+FOREIGN KEY ("equipment_id")
+  REFERENCES "equipment" ("id")
+) /*application='LabResourceManagement'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_maintenance_records_on_equipment_id" ON "maintenance_records" ("equipment_id") /*application='LabResourceManagement'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_maintenance_records_on_equipment_id_and_performed_at" ON "maintenance_records" ("equipment_id", "performed_at") /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260528175719') RETURNING "version" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (0.1ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Load (0.1ms)[0m  [1m[34mSELECT "equipment".* FROM "equipment" /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Computing' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Computing', '2026-05-28 18:11:20.022153', '2026-05-28 18:11:20.022153') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Optics' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Optics', '2026-05-28 18:11:20.026950', '2026-05-28 18:11:20.026950') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Networking' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Create (0.0ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Networking', '2026-05-28 18:11:20.032048', '2026-05-28 18:11:20.032048') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Electronics' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Create (0.0ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Electronics', '2026-05-28 18:11:20.043174', '2026-05-28 18:11:20.043174') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'DL-2024-001' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.1ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('Dell Latitude 5520', 'DL-2024-001', 'available', 1, '2026-05-28 18:11:20.054249', '2026-05-28 18:11:20.054249') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'HP-2024-002' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.0ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('HP EliteDesk 800', 'HP-2024-002', 'checked_out', 1, '2026-05-28 18:11:20.055946', '2026-05-28 18:11:20.055946') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'OLY-2024-003' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.0ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('Olympus BX53 Microscope', 'OLY-2024-003', 'available', 2, '2026-05-28 18:11:20.059201', '2026-05-28 18:11:20.059201') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'LAS-2024-004' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.0ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('HeNe Laser System', 'LAS-2024-004', 'maintenance', 2, '2026-05-28 18:11:20.060759', '2026-05-28 18:11:20.060759') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'CSC-2024-005' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.0ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('Cisco Catalyst 2960', 'CSC-2024-005', 'available', 3, '2026-05-28 18:11:20.062129', '2026-05-28 18:11:20.062129') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'NET-2024-006' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.1ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('Netgear ProSafe GS108', 'NET-2024-006', 'checked_out', 3, '2026-05-28 18:11:20.063708', '2026-05-28 18:11:20.063708') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'TEK-2024-007' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.0ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('Tektronix TBS1052B', 'TEK-2024-007', 'available', 4, '2026-05-28 18:11:20.065233', '2026-05-28 18:11:20.065233') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'FLU-2024-008' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.0ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('Fluke 87V Multimeter', 'FLU-2024-008', 'retired', 4, '2026-05-28 18:11:20.066660', '2026-05-28 18:11:20.066660') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'BKP-2024-009' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Create (0.0ms)[0m  [1m[32mINSERT INTO "equipment" ("name", "serial_number", "status", "category_id", "created_at", "updated_at") VALUES ('BK Precision 1685B', 'BKP-2024-009', 'maintenance', 4, '2026-05-28 18:11:20.068051', '2026-05-28 18:11:20.068051') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "equipment" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Create (0.4ms)[0m  [1m[32mINSERT INTO "maintenance_records" ("equipment_id", "performed_at", "description", "created_at", "updated_at") VALUES (1, '2026-03-28 18:11:20.068980', 'Replaced battery and updated BIOS firmware. System running optimally.', '2026-05-28 18:11:20.070478', '2026-05-28 18:11:20.070478') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Create (0.3ms)[0m  [1m[32mINSERT INTO "maintenance_records" ("equipment_id", "performed_at", "description", "created_at", "updated_at") VALUES (1, '2026-05-21 18:11:20.071562', 'Cleaned cooling fans and applied new thermal paste. Temperature readings normal.', '2026-05-28 18:11:20.071652', '2026-05-28 18:11:20.071652') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Create (0.7ms)[0m  [1m[32mINSERT INTO "maintenance_records" ("equipment_id", "performed_at", "description", "created_at", "updated_at") VALUES (4, '2026-05-07 18:11:20.072536', 'Calibrated laser alignment and replaced optical filters. Power output verified.', '2026-05-28 18:11:20.072611', '2026-05-28 18:11:20.072611') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Create (0.3ms)[0m  [1m[32mINSERT INTO "maintenance_records" ("equipment_id", "performed_at", "description", "created_at", "updated_at") VALUES (4, '2026-05-23 18:11:20.073948', 'Safety inspection completed. All interlocks functioning properly.', '2026-05-28 18:11:20.074076', '2026-05-28 18:11:20.074076') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Create (0.3ms)[0m  [1m[32mINSERT INTO "maintenance_records" ("equipment_id", "performed_at", "description", "created_at", "updated_at") VALUES (7, '2026-04-28 18:11:20.074957', 'Annual calibration performed. All channels within specification.', '2026-05-28 18:11:20.075023', '2026-05-28 18:11:20.075023') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "maintenance_records" /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories" /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "equipment" /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "equipment" WHERE "equipment"."status" = 'available' /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "equipment" WHERE "equipment"."status" = 'checked_out' /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "equipment" WHERE "equipment"."status" = 'maintenance' /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "equipment" WHERE "equipment"."status" = 'retired' /*application='LabResourceManagement'*/[0m
+  [1m[36mCACHE MaintenanceRecord Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "maintenance_records"[0m
+  [1m[36mEquipment Load (0.1ms)[0m  [1m[34mSELECT "equipment".* FROM "equipment" LEFT OUTER JOIN "maintenance_records" ON "maintenance_records"."equipment_id" = "equipment"."id" WHERE "maintenance_records"."id" IS NULL /*application='LabResourceManagement'*/[0m

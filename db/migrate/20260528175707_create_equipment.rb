@@ -8,7 +8,7 @@ class CreateEquipment < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    
+
     # Add unique index on serial_number
     add_index :equipment, :serial_number, unique: true
   end

@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  serial_number: MyString
-  status: MyString
+  name: Laptop
+  serial_number: LAP-001
+  status: available
   category: one
 
 two:
-  name: MyString
-  serial_number: MyString
-  status: MyString
+  name: Desk
+  serial_number: DSK-123
+  status: in_use
   category: two

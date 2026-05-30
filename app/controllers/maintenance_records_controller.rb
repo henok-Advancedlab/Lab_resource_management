@@ -1,8 +1,12 @@
 class MaintenanceRecordsController < ApplicationController
   def index
+    records = MaintenanceRecord.includes(:equipment).order(performed_at: :desc)
+    records = records.where(equipment_id: params[:equipment_id]) if params[:equipment_id].present?
+    render json: records.map { |record| maintenance_record_json(record) }
   end
 
   def show
+    render json: maintenance_record_json(@maintenance_record)
   end
 
   def create

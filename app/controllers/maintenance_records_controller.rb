@@ -13,12 +13,16 @@ class MaintenanceRecordsController < ApplicationController
   end
 
   def update
+    @maintenance_record.update!(maintenance_record_params)
+    render json: maintenance_record_json(@maintenance_record)
   end
 
   def destroy
+    @maintenance_record.destroy
+    head :no_content
   end
 
-    private
+  private
 
   def set_maintenance_record
     @maintenance_record = MaintenanceRecord.includes(:equipment).find(params[:id])

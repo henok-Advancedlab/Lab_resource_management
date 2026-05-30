@@ -11,7 +11,6 @@ class MaintenanceRecordsController < ApplicationController
   end
 
   def create
-    Equipment.find(maintenance_record_params[:equipment_id])
     record = MaintenanceRecord.create!(maintenance_record_params)
     render json: maintenance_record_json(record), status: :created
   end

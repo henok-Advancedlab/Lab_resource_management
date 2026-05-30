@@ -1,49 +1,56 @@
 class EquipmentController < ApplicationController
-  # GET /equipment
+  before_action :set_equipment, only: %i[show update destroy]
+
+  # GET /equipment — list all ordered by name, optional ?status= filter, includes category name
   def index
-    @equipment = Equipment.all
-    render json: @equipment
+    scope = Equipment.includes(:category).order(:name)
+    scope = scope.where(status: params[:status]) if params[:status].present?
+    render json: scope.map { |equipment| equipment_json(equipment) }
   end
 
-  # POST /equipment
+  # GET /equipment/:id — include category and all maintenance records (newest first)
+  def show
+    render json: equipment_detail_json(@equipment)
+  end
+
+  # POST /equipment — accept category_id; a missing category fails the belongs_to validation (422)
   def create
-    category = Category.find_by(id: params[:category_id]) if params[:category_id].present?
-
-    @equipment = Equipment.new(equipment_params)
-    @equipment.category = category if category
-
-    if @equipment.save
-      render json: @equipment, status: :created
-    else
-      render json: { errors: @equipment.errors.full_messages }, status: :unprocessable_entity
-    end
-  rescue ActiveRecord::RecordInvalid => e
-    render json: { errors: [e.message] }, status: :unprocessable_entity
+    equipment = Equipment.create!(equipment_params)
+    render json: equipment_json(equipment), status: :created
   end
 
-  # PUT/PATCH /equipment/:id
+  # PATCH/PUT /equipment/:id
   def update
-    @equipment = Equipment.find(params[:id])
-    
-    # Task 7 Protection: Catch invalid status updates immediately
-    if params[:status] == 'broken' || (params[:equipment] && params[:equipment][:status] == 'broken')
-      render json: { errors: ["'broken' is not a valid status"] }, status: :unprocessable_entity
-      return
-    end
+    @equipment.update!(equipment_params)
+    render json: equipment_json(@equipment)
+  end
 
-    # Standard update flow for the rest of the tasks
-    permitted = params.has_key?(:equipment) ? params.require(:equipment).permit(:name, :serial_number, :status, :category_id) : params.permit(:name, :serial_number, :status, :category_id)
-    
-    if @equipment.update(permitted)
-      render json: @equipment
-    else
-      render json: { errors: @equipment.errors.full_messages }, status: :unprocessable_entity
-    end
+  # DELETE /equipment/:id — cascades to maintenance records via dependent: :destroy
+  def destroy
+    @equipment.destroy
+    head :no_content
   end
 
   private
 
+  def set_equipment
+    @equipment = Equipment.find(params[:id])
+  end
+
   def equipment_params
-    params.permit(:name, :serial_number, :status, :category_id)
+    params.require(:equipment).permit(:name, :serial_number, :status, :category_id)
+  end
+
+  def equipment_json(equipment)
+    equipment.as_json(only: %i[id name serial_number status category_id created_at updated_at])
+             .merge(category_name: equipment.category&.name)
+  end
+
+  def equipment_detail_json(equipment)
+    equipment_json(equipment).merge(
+      category: equipment.category.as_json(only: %i[id name]),
+      maintenance_records: equipment.maintenance_records.order(performed_at: :desc)
+                                    .as_json(only: %i[id performed_at description created_at updated_at])
+    )
   end
 end

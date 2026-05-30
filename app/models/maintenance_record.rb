@@ -3,7 +3,8 @@ class MaintenanceRecord < ApplicationRecord
   belongs_to :equipment
 
   # Validations
-  validates :equipment, presence: true
+  # `belongs_to :equipment` is required by default, so a separate presence
+  # validation would only duplicate the "must exist" error.
   validates :performed_at, presence: true
   validates :description, presence: true
 

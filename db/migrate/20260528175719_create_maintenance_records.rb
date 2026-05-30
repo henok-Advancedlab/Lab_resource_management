@@ -7,8 +7,8 @@ class CreateMaintenanceRecords < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    
+
     # Add composite index on equipment_id and performed_at
-    add_index :maintenance_records, [:equipment_id, :performed_at]
+    add_index :maintenance_records, [ :equipment_id, :performed_at ]
   end
 end

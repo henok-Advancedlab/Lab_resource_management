@@ -112,3 +112,5 @@ FOREIGN KEY ("equipment_id")
   [1m[36mEquipment Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "equipment" WHERE "equipment"."status" = 'retired' /*application='LabResourceManagement'*/[0m
   [1m[36mCACHE MaintenanceRecord Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "maintenance_records"[0m
   [1m[36mEquipment Load (0.1ms)[0m  [1m[34mSELECT "equipment".* FROM "equipment" LEFT OUTER JOIN "maintenance_records" ON "maintenance_records"."equipment_id" = "equipment"."id" WHERE "maintenance_records"."id" IS NULL /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."id" ASC LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = '123-ABC' LIMIT 1 /*application='LabResourceManagement'*/[0m

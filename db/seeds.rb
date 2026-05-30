@@ -1,6 +1,5 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# This file ensures the existence of records required to run the application in every environment.
+# The code here is idempotent so that it can be executed at any point in every environment.
 
 # Clear existing data (in reverse order of dependencies)
 puts "Clearing existing data..."
@@ -23,29 +22,29 @@ puts "Creating equipment..."
 # Computing equipment
 laptop1 = Equipment.create!(
   name: "Dell Latitude 5520",
-  serial_number: "DL-2024-001",
+  serial_number: "DLL-001",
   status: "available",
   category: computing
 )
 
 desktop1 = Equipment.create!(
   name: "HP EliteDesk 800",
-  serial_number: "HP-2024-002",
-  status: "checked_out",
+  serial_number: "HPD-002",
+  status: "in_use",
   category: computing
 )
 
 # Optics equipment
 microscope1 = Equipment.create!(
   name: "Olympus BX53 Microscope",
-  serial_number: "OLY-2024-003",
+  serial_number: "OLY-003",
   status: "available",
   category: optics
 )
 
 laser1 = Equipment.create!(
   name: "HeNe Laser System",
-  serial_number: "LAS-2024-004",
+  serial_number: "LAS-004",
   status: "maintenance",
   category: optics
 )
@@ -53,36 +52,36 @@ laser1 = Equipment.create!(
 # Networking equipment
 router1 = Equipment.create!(
   name: "Cisco Catalyst 2960",
-  serial_number: "CSC-2024-005",
+  serial_number: "CSC-005",
   status: "available",
   category: networking
 )
 
 switch1 = Equipment.create!(
   name: "Netgear ProSafe GS108",
-  serial_number: "NET-2024-006",
-  status: "checked_out",
+  serial_number: "NET-006",
+  status: "in_use",
   category: networking
 )
 
 # Electronics equipment
 oscilloscope1 = Equipment.create!(
   name: "Tektronix TBS1052B",
-  serial_number: "TEK-2024-007",
+  serial_number: "TEK-007",
   status: "available",
   category: electronics
 )
 
 multimeter1 = Equipment.create!(
   name: "Fluke 87V Multimeter",
-  serial_number: "FLU-2024-008",
-  status: "retired",
+  serial_number: "FLU-008",
+  status: "available", # Changed from retired to available to match inclusions
   category: electronics
 )
 
 power_supply1 = Equipment.create!(
   name: "BK Precision 1685B",
-  serial_number: "BKP-2024-009",
+  serial_number: "BKP-009",
   status: "maintenance",
   category: electronics
 )
@@ -131,9 +130,8 @@ puts "\n=== Seed Data Summary ==="
 puts "Categories: #{Category.count}"
 puts "Equipment: #{Equipment.count}"
 puts "  - Available: #{Equipment.where(status: 'available').count}"
-puts "  - Checked Out: #{Equipment.where(status: 'checked_out').count}"
+puts "  - In Use: #{Equipment.where(status: 'in_use').count}"
 puts "  - Maintenance: #{Equipment.where(status: 'maintenance').count}"
-puts "  - Retired: #{Equipment.where(status: 'retired').count}"
 puts "Maintenance Records: #{MaintenanceRecord.count}"
 puts "\nEquipment with no maintenance history:"
 Equipment.left_joins(:maintenance_records)

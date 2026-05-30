@@ -1,27 +1,31 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show update destroy]
 
-  # GET /categories — list all, ordered alphabetically by name
+  # GET /categories — list all, ordered alphabetically by name.
+  # Counts equipment in a single grouped query to avoid an N+1.
   def index
-    categories = Category.order(:name)
-    render json: categories.map { |category| category_json(category) }
+    categories = Category.left_joins(:equipment)
+                         .select("categories.*, COUNT(equipment.id) AS equipment_count")
+                         .group("categories.id")
+                         .order(:name)
+    render json: categories.map { |category| category_json(category, category.equipment_count) }
   end
 
   # GET /categories/:id — show one, including its equipment count
   def show
-    render json: category_json(@category)
+    render json: category_json(@category, @category.equipment.count)
   end
 
   # POST /categories
   def create
     category = Category.create!(category_params)
-    render json: category_json(category), status: :created
+    render json: category_json(category, category.equipment.count), status: :created
   end
 
   # PATCH/PUT /categories/:id
   def update
     @category.update!(category_params)
-    render json: category_json(@category)
+    render json: category_json(@category, @category.equipment.count)
   end
 
   # DELETE /categories/:id — 409 if equipment still references it, else delete
@@ -46,8 +50,8 @@ class CategoriesController < ApplicationController
     params.require(:category).permit(:name)
   end
 
-  def category_json(category)
+  def category_json(category, equipment_count)
     category.as_json(only: %i[id name created_at updated_at])
-            .merge(equipment_count: category.equipment.count)
+            .merge(equipment_count: equipment_count.to_i)
   end
 end

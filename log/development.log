@@ -114,3 +114,99 @@ FOREIGN KEY ("equipment_id")
   [1m[36mEquipment Load (0.1ms)[0m  [1m[34mSELECT "equipment".* FROM "equipment" LEFT OUTER JOIN "maintenance_records" ON "maintenance_records"."equipment_id" = "equipment"."id" WHERE "maintenance_records"."id" IS NULL /*application='LabResourceManagement'*/[0m
   [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."id" ASC LIMIT 1 /*application='LabResourceManagement'*/[0m
   [1m[36mEquipment Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = '123-ABC' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LabResourceManagement'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (0.3ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Destroy (3.7ms)[0m  [1m[31mDELETE FROM "maintenance_records" WHERE "maintenance_records"."id" = 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (26.9ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Destroy (3.2ms)[0m  [1m[31mDELETE FROM "maintenance_records" WHERE "maintenance_records"."id" = 2 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Destroy (2.7ms)[0m  [1m[31mDELETE FROM "maintenance_records" WHERE "maintenance_records"."id" = 3 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Destroy (3.0ms)[0m  [1m[31mDELETE FROM "maintenance_records" WHERE "maintenance_records"."id" = 4 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Destroy (2.5ms)[0m  [1m[31mDELETE FROM "maintenance_records" WHERE "maintenance_records"."id" = 5 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Load (0.2ms)[0m  [1m[34mSELECT "equipment".* FROM "equipment" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (9.7ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (4.9ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 2 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 2 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (10.0ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 3 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 3 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (2.9ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 4 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 4 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (3.0ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 5 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 5 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (3.7ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 6 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 6 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (2.9ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 7 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 7 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (3.3ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 8 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 8 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mMaintenanceRecord Load (3.0ms)[0m  [1m[34mSELECT "maintenance_records".* FROM "maintenance_records" WHERE "maintenance_records"."equipment_id" = 9 /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Destroy (0.1ms)[0m  [1m[31mDELETE FROM "equipment" WHERE "equipment"."id" = 9 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."category_id" = 1 LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Destroy (0.1ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."category_id" = 2 LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Destroy (0.1ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 2 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."category_id" = 3 LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Destroy (0.1ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 3 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (17.3ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."category_id" = 4 LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Destroy (0.1ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 4 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Computing' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Computing', '2026-05-30 12:18:29.777173', '2026-05-30 12:18:29.777173') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Optics' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Optics', '2026-05-30 12:18:29.790045', '2026-05-30 12:18:29.790045') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Exists? (3.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Networking' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Networking', '2026-05-30 12:18:29.803153', '2026-05-30 12:18:29.803153') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Exists? (3.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Electronics' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ('Electronics', '2026-05-30 12:18:29.814234', '2026-05-30 12:18:29.814234') RETURNING "id" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mCategory Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories" /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='LabResourceManagement'*/[0m
+  [1m[36mEquipment Exists? (4.0ms)[0m  [1m[34mSELECT 1 AS one FROM "equipment" WHERE "equipment"."serial_number" = 'DL-2024-001' LIMIT 1 /*application='LabResourceManagement'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION /*application='LabResourceManagement'*/[0m

@@ -1,4 +1,5 @@
 class MaintenanceRecordsController < ApplicationController
+  before_action :set_maintenance_record, only: %i[show update destroy]
   def index
     records = MaintenanceRecord.includes(:equipment).order(performed_at: :desc)
     records = records.where(equipment_id: params[:equipment_id]) if params[:equipment_id].present?
@@ -36,8 +37,6 @@ class MaintenanceRecordsController < ApplicationController
   end
 
   def maintenance_record_json(record)
-    record.as_json(only: %i[id equipment_id performed_at description created_at updated_at]).merge(
-      equipment_name: record.equipment&.name
-    )
+    record.as_json(only: %i[id equipment_id performed_at description created_at updated_at]).merge(equipment_name: record.equipment&.name)
   end
 end

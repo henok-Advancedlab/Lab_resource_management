@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-  get "maintenance_records/index"
-  get "maintenance_records/show"
-  get "maintenance_records/create"
-  get "maintenance_records/update"
-  get "maintenance_records/destroy"
+  resources :maintenance_records, only: %i[index show create update destroy]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

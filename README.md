@@ -1,24 +1,11 @@
-# README
+# Lab Equipment Management API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A centralized RESTful JSON API built with Ruby on Rails to track laboratory resources, equipment statuses, and historical maintenance logs.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Setup Instructions
+```bash
+git clone <repo-url>
+cd Lab_resource_management
+bundle install
+bin/rails db:create db:migrate db:seed
+bin/rails server

@@ -70,3 +70,26 @@ Category 1───* Equipment 1───* MaintenanceRecord
 | Delete category with equipment | `409` — `{ "error": "Cannot delete category. N equipment items still belong to it." }` |
 
 See [`API_CURL_TESTS.md`](API_CURL_TESTS.md) for worked `curl` examples of every endpoint and all edge cases.
+
+## Team
+
+| Member | Role | Tasks |
+|--------|------|-------|
+| Henok | Team Lead / Architect | Data model & migrations (Task 1), Seed data (Task 2), PR management |
+| Nathenael Tamirat | Backend Developer | Equipment CRUD (Task 4), code comments, technical documentation |
+| Hosie Dereje | Backend Developer | Categories CRUD (Task 3), Edge case testing (Task 7) |
+| Natnael Fikire | Backend Developer | MaintenanceRecord CRUD (Task 5) |
+| Bereket Nebiyu | Validations Developer | Business rules & validations (Task 6), global error handling |
+| Oliyad Bekele | Integration Engineer | Route fixes, model tests, API documentation, RuboCop cleanup |
+
+### Task Assignment & Completion Status
+
+| Task | Owner | Branch | Status |
+|------|-------|--------|--------|
+| 1 — Data model and migrations | Henok | `main` | Done |
+| 2 — Seed data | Henok | `main` | Done |
+| 3 — Categories CRUD | Hosie Dereje | `task-3-categories` | Done |
+| 4 — Equipment CRUD | Nathenael Tamirat | `main` | Done |
+| 5 — MaintenanceRecord CRUD | Natnael Fikire | `main` | Done |
+| 6 — Business rules | Bereket Nebiyu | `main` | Done |
+| 7 — Edge case testing | Hosie Dereje | `task-7-edge-cases` | Done |

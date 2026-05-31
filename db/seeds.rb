@@ -75,7 +75,7 @@ oscilloscope1 = Equipment.create!(
 multimeter1 = Equipment.create!(
   name: "Fluke 87V Multimeter",
   serial_number: "FLU-008",
-  status: "available", # Changed from retired to available to match inclusions
+  status: "available",
   category: electronics
 )
 
